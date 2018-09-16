@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imemyself.template.dao.DictionaryTypeMapper">
+
+    <resultMap id="resultMap" type="com.imemyself.template.domain.DictionaryType">
+        <id property="id" column="id"/>
+        <result property="dictionaryTypeCode" column="dictionary_type_code"/>
+        <result property="dictionaryTypeName" column="dictionary_type_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="updator" column="updator"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO dictionary_type(dictionary_type_code,dictionary_type_name,create_date,creator) VALUES(#{dictionaryTypeCode},#{dictionaryTypeName},NOW(),'System')
+    </insert>
+
+    <update id="update" parameterType="com.imemyself.template.domain.DictionaryType">
+        UPDATE dictionary_type SET dictionary_type_code=#{dictionaryTypeCode},dictionary_type_name=#{dictionaryTypeName},remark = '测试更新操作',update_date=NOW(),updator='mybatis' WHERE id =#{id};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM dictionary_type WHERE id=#{id};
+    </delete>
+
+    <select id="findOne" resultMap="resultMap">
+        SELECT id, dictionary_type_code,dictionary_type_name,create_date,creator,update_date,updator,remark FROM dictionary_type WHERE id=#{id};
+    </select>
+
+    <select id="find" resultMap="resultMap">
+        SELECT id,dictionary_type_code,dictionary_type_name,create_date,creator,update_date,updator,remark FROM dictionary_type
+        <where>
+            <if test="dictionaryTypeCode!=null AND dictionaryTypeCode==''">
+                dictionary_type_code LIKE '${dictionaryTypeCode}%'
+            </if>
+            <if test="dictionaryTypeName!=null AND dictionaryTypeName==''">
+                dictionary_type_name = #{dictionaryTypeName}
+            </if>
+            <if test="creator!=null AND creator==''">
+                creator = #{creator}
+            </if>
+        </where>
+    </select>
+</mapper>
