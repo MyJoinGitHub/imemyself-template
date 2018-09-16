@@ -84,4 +84,67 @@ public class MybatisTestUnit {
         }
     }
 
+    @Test
+    public void testSessionUpdate(){
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        try {
+            DictionaryType param = new DictionaryType();
+            param.setId(4L);
+            param.setDictionaryTypeCode("status");
+            param.setDictionaryTypeName("状态");
+            int obj = sqlSession.insert("com.imemyself.template.dao.DictionaryTypeMapper.update", param);
+            LOG.info("Result:{}", obj);
+        }catch (Exception e){
+            LOG.error("Mybatis 操作数据库异常",e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testMapperUpdate(){
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        try {
+            DictionaryTypeMapper mapper = sqlSession.getMapper(DictionaryTypeMapper.class);
+            DictionaryType obj = new DictionaryType();
+            obj.setId(5L);
+            obj.setDictionaryTypeCode("ruleType");
+            obj.setDictionaryTypeName("规则类型");
+            mapper.update(obj);
+            LOG.info("Result:{}", obj);
+        }catch (Exception e){
+            LOG.error("Mybatis 操作数据库异常",e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+
+    @Test
+    public void testSessionDelete(){
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        try {
+            int obj = sqlSession.delete("com.imemyself.template.dao.DictionaryTypeMapper.delete", 4L);
+            LOG.info("Result:{}", obj);
+        }catch (Exception e){
+            LOG.error("Mybatis 操作数据库异常",e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testMapperDelete(){
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        try {
+            DictionaryTypeMapper mapper = sqlSession.getMapper(DictionaryTypeMapper.class);
+            Integer obj = mapper.delete(4L);
+            LOG.info("Result:{}", obj);
+        }catch (Exception e){
+            LOG.error("Mybatis 操作数据库异常",e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 }
