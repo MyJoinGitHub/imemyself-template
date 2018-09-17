@@ -1,5 +1,6 @@
 package com.imemyself.template.dao.test;
 
+import com.github.pagehelper.PageHelper;
 import com.imemyself.template.dao.DictionaryTypeMapper;
 import com.imemyself.template.domain.DictionaryType;
 import org.apache.ibatis.io.Resources;
@@ -10,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 public class MybatisTestUnit {
 
@@ -139,6 +142,25 @@ public class MybatisTestUnit {
         try {
             DictionaryTypeMapper mapper = sqlSession.getMapper(DictionaryTypeMapper.class);
             Integer obj = mapper.delete(4L);
+            LOG.info("Result:{}", obj);
+        }catch (Exception e){
+            LOG.error("Mybatis 操作数据库异常",e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testList(){
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        try {
+            DictionaryTypeMapper mapper = sqlSession.getMapper(DictionaryTypeMapper.class);
+            PageHelper.startPage(0,1);
+            DictionaryType dictionaryType = new DictionaryType();
+            List<DictionaryType> obj = mapper.find(dictionaryType);
+            LOG.info("Result:{}", obj);
+            PageHelper.startPage(1,1);
+            obj = mapper.find(dictionaryType);
             LOG.info("Result:{}", obj);
         }catch (Exception e){
             LOG.error("Mybatis 操作数据库异常",e);
