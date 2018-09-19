@@ -12,6 +12,7 @@
     <module>template-common</module>
     <module>template-domain</module>
     <module>template-dao</module>
+    <module>template-service</module>
   </modules>
 
   <name>template</name>
@@ -89,6 +90,13 @@
         <groupId>com.github.pagehelper</groupId>
         <artifactId>pagehelper</artifactId>
         <version>5.1.2</version>
+      </dependency>
+
+      <!--SpringFramework-->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.0.8.RELEASE</version>
       </dependency>
 
     </dependencies>

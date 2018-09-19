@@ -159,7 +159,10 @@ public class MybatisTestUnit {
             DictionaryType dictionaryType = new DictionaryType();
             List<DictionaryType> obj = mapper.find(dictionaryType);
             LOG.info("Result:{}", obj);
-            PageHelper.startPage(1,1);
+            PageHelper.offsetPage(1,1);
+            obj = mapper.find(dictionaryType);
+            LOG.info("Result:{}", obj);
+            PageHelper.offsetPage(2,1);
             obj = mapper.find(dictionaryType);
             LOG.info("Result:{}", obj);
         }catch (Exception e){
@@ -168,5 +171,4 @@ public class MybatisTestUnit {
             sqlSession.close();
         }
     }
-
 }
