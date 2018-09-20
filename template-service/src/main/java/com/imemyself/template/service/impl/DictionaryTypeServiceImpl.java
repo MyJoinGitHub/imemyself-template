@@ -17,4 +17,18 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeService {
         logger.info("Hello world!");
         return null;
     }
+
+    private DictionaryType dictionaryType;
+
+    public void setDictionaryType(DictionaryType dictionaryType) {
+        this.dictionaryType = dictionaryType;
+    }
+
+    public void initMethod(){
+        logger.info("Spring init method!");
+    }
+
+    public void destroyMethod(){
+        logger.info("Spring destroyMethod!");
+    }
 }

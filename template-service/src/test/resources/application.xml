@@ -4,8 +4,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dictionaryTypeService" class="com.imemyself.template.service.impl.DictionaryTypeServiceImpl">
 
+    <bean id="dictionaryType" class="com.imemyself.template.domain.DictionaryType" lazy-init="true">
+        <property name="remark" value="测试"/>
+    </bean>
+
+    <bean id="dictionaryTypeService" class="com.imemyself.template.service.impl.DictionaryTypeServiceImpl"
+          autowire="byName" init-method="initMethod" destroy-method="destroyMethod" depends-on="dictionaryType">
     </bean>
 
 
