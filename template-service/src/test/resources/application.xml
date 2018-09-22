@@ -13,5 +13,4 @@
           autowire="byName" init-method="initMethod" destroy-method="destroyMethod" depends-on="dictionaryType">
     </bean>
 
-
 </beans>
