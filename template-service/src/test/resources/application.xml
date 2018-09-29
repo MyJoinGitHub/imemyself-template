@@ -5,7 +5,11 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="dictionaryType" class="com.imemyself.template.domain.DictionaryType" lazy-init="true">
+    <bean id="dictionaryType" name="dt01,dt02" class="com.imemyself.template.domain.DictionaryType" lazy-init="true">
+        <description>数据字典类型</description>
+        <meta key="k" value="v"/>
+        <constructor-arg name="dictionaryTypeCode" value="001"/>
+        <constructor-arg name="dictionaryTypeName" value="操作类型"/>
         <property name="remark" value="测试"/>
     </bean>
 
