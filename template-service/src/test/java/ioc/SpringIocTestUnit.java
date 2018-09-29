@@ -14,6 +14,9 @@ public class SpringIocTestUnit {
 
     private final static Logger LOGGER = LogManager.getLogger(SpringIocTestUnit.class);
 
+    /**
+     * Spring 容器初始化时预备注入ApplicationContextAwareProcessor、ApplicationListenerDetector，其中ApplicationListenerDetector继承接口DestructionAwareBeanPostProcessor，MergedBeanDefinitionPostProcessor
+     */
     @Test
     public void testOne() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:spring-ioc.xml");
