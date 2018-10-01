@@ -12,6 +12,14 @@ public class DictionaryType extends BaseDomain {
      */
     private String dictionaryTypeName;
 
+    public DictionaryType() {
+    }
+
+    public DictionaryType(String dictionaryTypeCode, String dictionaryTypeName) {
+        this.dictionaryTypeCode = dictionaryTypeCode;
+        this.dictionaryTypeName = dictionaryTypeName;
+    }
+
     public String getDictionaryTypeCode() {
         return dictionaryTypeCode;
     }

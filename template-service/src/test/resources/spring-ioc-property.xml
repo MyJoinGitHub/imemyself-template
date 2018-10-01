@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd" default-init-method="">
+
+    <bean id="oneIoc" class="ioc.SpringIoc">
+        <property name="name" value="oneIoc"/>
+    </bean>
+
+    <!--没有定义id属性，bean的id取name中的第一个，然后通过构造参数注入值-->
+    <bean id="twoIoc" class="ioc.SpringIoc" primary="true">
+        <description>多个别名配置</description>
+        <!--meta子标签用于配置中而外添加属性，通过getAttribute方法获取-->
+        <meta key="deptName" value="客服"/>
+        <constructor-arg index="0" name="name" value="twoIoc"/>
+    </bean>
+
+    <!--注入引用，list、set、map-->
+    <bean id="springIoc" class="ioc.SpringIocBean">
+        <property name="single" ref="oneIoc"/>
+        <property name="list">
+            <list>
+                <ref bean="oneIoc"/>
+                <ref bean="twoIoc"/>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <ref bean="oneIoc"/>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="one" value-ref="twoIoc"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--指定的lookup-method标签中指定的name方法名，返回值必须为bean匹配的类型，通过这方式可以注入非单例bean-->
+    <bean id="iocPrototype" class="ioc.SpringIoc" scope="prototype"/>
+
+    <bean id="lookup" class="ioc.LookupOverride">
+        <lookup-method bean="iocPrototype" name="createSpringIoc"/>
+    </bean>
+
+    <!--使用replaced-method子标签用法-->
+    <bean id="replaceBean" class="ioc.ReplacedMethod"/>
+
+    <bean id="fourIoc" class="ioc.SpringIocContext">
+        <replaced-method name="getSpringIoc" replacer="replaceBean"/>
+    </bean>
+
+</beans>

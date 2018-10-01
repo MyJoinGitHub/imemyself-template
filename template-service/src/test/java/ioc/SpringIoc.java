@@ -10,7 +10,7 @@ public class SpringIoc {
 
     private final static Logger LOGGER = LogManager.getLogger(SpringIoc.class);
 
-    private String name;
+    private String name = "default";
 
     public SpringIoc() {
         LOGGER.info("No parameter constructor........");

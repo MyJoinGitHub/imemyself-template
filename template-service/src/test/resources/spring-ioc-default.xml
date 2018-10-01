@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+见源码：org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.populateDefaults
+http://www.springframework.org/schema/beans是Spring默认的命名空间
+beans标签包含有以下属性及其相关作用
+"default-lazy-init"：指定<beans>元素下配置的所有bean默认的延迟初始化行为
+"default-merge"：指定<beans>元素下配置的所有bean默认的merge行为
+"default-autowire"：指定<beans>元素下配置的所有bean默认的自动装配行为
+"default-autowire-candidates"：指定<beans>元素下配置的所有bean默认是否不作为自动装配
+"default-init-method"：指定<beans>元素下配置的所有bean默认的初始化方法
+"default-destroy-method"：指定<beans>元素下配置的所有bean默认的回收方法
+"profile":指定该Spring配置文件适用的profile环境id，匹配配置spring.profiles.active这个环境变量指定的值
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd" default-init-method="defaultInitMethod"
+       default-destroy-method="defaultInitMethod" default-lazy-init="true" default-autowire="byName"
+       default-merge="true" default-autowire-candidates="default*" profile="dev">
+
+    <!--没有指定init-method、destroy-method，取父标签beans指定的default-init-method、default-destroy-method方法名-->
+    <bean id="defaultNameSpaceBean" class="ioc.DefaultNameSpaceBean"/>
+
+    <!--Bena的id、别名设置逻辑：id、name可以同时存在，如果id为空，去name属性的第一个参数值（多个值使用英文逗号分隔），剩下的name属性作为该bean实例的别名，
+        再name属性也为空，Spring会自动生成一个bean标识id-->
+    <bean id="overrideNameSpaceBean" name="aliasName01,aliasName02" class="ioc.DefaultNameSpaceBean" init-method="initMethod" destroy-method="destroyMethod" lazy-init="false"/>
+
+</beans>
